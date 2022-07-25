@@ -1,13 +1,27 @@
-import axios from "axios";
+// import axios from "axios";
 
-const USERS_REST_API_URL = 'http://localhost:8080/api/users'
+// const USERS_REST_API_URL = 'http://localhost:8080/api/users'
 
-class UserService {
+// export default function UserService() {
 
-    getUsers() {
-        return axios.get(USERS_REST_API_URL)
-    }
+//     getUser() {
+//         return axios.get(USERS_REST_API_URL)
+//     }
+    
+// }
 
-}
+// video: class components
+// import axios from "axios";
 
-export default new UserService()
+// const USERS_REST_API_URL = 'http://localhost:8080/api/users'
+
+// class UserService {
+
+//     getUsers() {
+//         return axios.get(USERS_REST_API_URL)
+//     }
+    
+
+// }
+
+// export default new UserService()
