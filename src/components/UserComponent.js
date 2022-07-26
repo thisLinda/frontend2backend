@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 
-export default function GetUserComponent() {
+const getUsers = async () => {
+        
+        const fetchUsers = await fetch('http://localhost:8080/api/users')
+        const parseUsers = await fetchUsers.json()
+        console.log(parseUsers)
+        return parseUsers
+
+}
+
+export default function GetUsersComponent() {
+
     const [loading, setLoading] = useState(true)
     const [users, setUsers] = useState([])
 
-    const getUsers = async () => {
+    const iDk = async () => {
         setLoading(true)
-        const response = await axios.get('http://localhost:8080/api/users/')
-        console.log(response)
-        let { data } = response.data
-        console.log(data)
-        console.log(response.data)
+        const users = await getUsers()
         setLoading(false)
-        setUsers(data.users)
-    };
+        setUsers(users)
+    }
 
     useEffect(() => {
-        getUsers()
-    }, [])
+        iDk()
+    }, []);
 
     if (loading) {
         return <div>...loading...</div>
@@ -26,7 +31,7 @@ export default function GetUserComponent() {
 
     return (
         <div>
-            <h1 className='text-center'>Users List</h1>
+        <h1 className='text-center'>Users List</h1>
             <table className = 'table table-striped'>
                 <thead>
                     <tr>
@@ -37,72 +42,17 @@ export default function GetUserComponent() {
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        users.map(
-                            user =>
-                            <tr key = {user.id}>
-                                <td>{user.id}</td>
-                                <td>{user.firstName}</td>
-                                <td>{user.lastName}</td>
-                                <td>{user.email}</td>
-                            </tr>
-                        )
-                    }
+                    { users.map(user => 
+                    <tr key = {user.id}> 
+                        <td>{ user.id }</td>
+                        <td>{ user.firstName }</td>
+                        <td>{ user.lastName }</td>
+                        <td>{ user.email }</td>
+                    </tr>
+                    )}
                 </tbody>
             </table>
         </div>
     )
-}
-
-// import React from 'react'
-// import UserService from './services/UserService'
-
-// class UserComponent extends React.Component {
-
-//     constructor(props) {
-//         super(props)
-//         this.state = {
-//             users:[]
-//         }
-//     }
-
-//     componentDidMount() {
-//         UserService.getUsers().then((response) => {
-//             this.setState({ users: response.data })
-//         })
-//     }
-
-//     render() {
-//         return (
-//             <div>
-//                 <h1 className='text-center'>Users List</h1>
-//                 <table className = 'table table-striped'>
-//                     <thead>
-//                         <tr>
-//                             <td>User Id</td>
-//                             <td>User First Name</td>
-//                             <td>User Last Name</td>
-//                             <td>User Email</td>
-//                         </tr>
-//                     </thead>
-//                     <tbody>
-//                         {
-//                             this.state.users.map(
-//                                 user =>
-//                                 <tr key = {user.id}>
-//                                     <td>{user.id}</td>
-//                                     <td>{user.firstName}</td>
-//                                     <td>{user.lastName}</td>
-//                                     <td>{user.email}</td>
-//                                 </tr>
-//                             )
-//                         }
-//                     </tbody>
-//                 </table>
-//             </div>
-//         )
-//     }
     
-// }
-
-// export default UserComponent
+}
